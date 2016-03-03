@@ -361,7 +361,7 @@ app.post('/updateprofile',function(req,res) {
         }
         if(req.body.specificJob!=null && req.body.specificJob!=undefined) {
             console.log(req.body.specificJob)
-            user.specific_job = req.body.specificJob;
+            user['specific_job'] = req.body.specificJob;
         }
         if(req.body.address!=null && req.body.address!=undefined) {
             console.log(req.body.address)

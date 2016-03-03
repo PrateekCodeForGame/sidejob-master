@@ -212,6 +212,10 @@ angular.module("mainApp",['ngRoute','ngFileUpload','ui.bootstrap'])
 			'phone': data.phone,
 			'job': data.job
 		};
+		if ($scope.userData.avatar == undefined) {
+			$scope.userData['avatar'] = "http://localhost:8001/profileimages/user.jpg";
+		}
+		console.log(".......................", $scope.userData.avatar);
 	};
 
 	function setUserImage (data) {
@@ -328,6 +332,9 @@ angular.module("mainApp",['ngRoute','ngFileUpload','ui.bootstrap'])
 			'phone': data.phone,
 			'job': data.job
 		};
+		console.log("........................", $scope.userData);
+
+		$scope.specificCategory = $scope.categories[$scope.userData.generalJob];
 
 		$scope.passwordSet = {
 			'checkPassword': "",
@@ -390,6 +397,7 @@ angular.module("mainApp",['ngRoute','ngFileUpload','ui.bootstrap'])
 				$rootScope.$broadcast('update-profile');
 				GetUserData.all()
 				.success(function(data){
+					console.log("........................", $scope.userData);
 					$scope.setUserData(data);
 					$scope.userName = data.firstname;
 					$scope.userLogo = data.avatar;
