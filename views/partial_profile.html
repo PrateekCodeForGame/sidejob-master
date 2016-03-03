@@ -1,0 +1,206 @@
+<section class="container-fluid">
+	<div class="row">
+	<div class="col-md-9 side-space single-profile-content">
+		<div class="single-profile-top">
+			<ul class="single-profile">
+            	<li class="col-md-3 no-padd img-avatar">
+            		<span class="avatar-profile">
+            			<img alt="" ng-src="{{userData.avatar}}" title="Edit profile image" id="profile_img" ng-model="file" class="avatar avatar-70 photo avatar-default cursor pic" height="200" width="200" type="file" ngf-select="upload($file, $invalidFiles)" accept="image/*" ngf-max-height="1000" ngf-max-size="1MB">
+            			</span>
+            			
+            	</li>
+            
+	            <li class=" col-md-9 info-profile">
+
+					<div class="profile-info name-profile">
+						<span>{{userData.name}}</span>
+					</div>
+
+					<div class="profile-info position-profile">
+						<div class="profile-edit" ng-show="dataEditVisible.job">
+							<input type="text" ng-model="userData.job" ng-value="userData.job" ng-keydown="profileEditAction($event, 'job')">
+						</div>
+						<span>{{userData.job}}</span> <span ng-click="dataEditVisible.job=true" class="edit-profile"><i class="fa fa-pencil-square-o"></i></span>
+					</div>
+
+					<div class="profile-info address-profile">
+						<div class="profile-edit" ng-show="dataEditVisible.address">
+							<input type="text" ng-model="userData.address" ng-value="userData.address" ng-keydown="profileEditAction($event, 'address')">
+						</div>
+						<span>{{userData.address}}</span> <span ng-click="dataEditVisible.address=true" class="edit-profile"><i class="fa fa-pencil-square-o"></i></span>
+					</div>
+
+	                <span class="number-review-profile">
+	                	<div class="rate-it" data-score="" title="Not rated yet!">
+	                		<i data-alt="1" class="fa fa-star star-on-png" title="Not rated yet!"></i>&nbsp;
+	                		<i data-alt="2" class="fa fa-star star-on-png" title="Not rated yet!"></i>&nbsp;
+	                		<i data-alt="3" class="fa fa-star star-on-png" title="Not rated yet!"></i>&nbsp;
+	                		<i data-alt="4" class="fa fa-star-o off star-off-png" title="Not rated yet!"></i>&nbsp;
+	                		<i data-alt="5" class="fa fa-star-o off star-off-png" title="Not rated yet!"></i><input name="score" type="hidden" readonly="">
+	                	</div>
+	                </span>
+	                <ul class="horizontal-ul">
+	                	<li><span class="get_inline">JOBS POSTED: 24</span></li>
+	                	<li><span class="get_inline">JOBS COMPLETED: 3 </span></li>
+	                	<li><span class="get_inline"><a href="#appliedjobs" class="get_inline">JOBS APPLIED: {{main.num_of_applied_jobs()}}</a> </span></li>
+	                </ul>
+	                
+	                
+	                
+	            </li>
+            
+        	</ul>  
+            
+            <div class="clearfix"></div>
+
+    	</div>
+    	<div class="single-profile-bottom">
+            <!-- overview -->
+            <div class="profile-overview">
+            	<h3 class="title-single-profile">ABOUT ME</h3>
+            	<div  class="description-single-profile">
+					<div class="top-skills-wrapper">
+						<h3 class="title">SUMMARY</h3>
+						<i class="fa fa-pencil-square-o" ng-click="dataEditVisible.summary=true;"></i>
+					</div>
+
+            		<span ng-show="!dataEditVisible.summary" style="font-size: 15px;">
+						{{userData.summary}}
+					</span>
+					<textarea id="summary-edit" ng-show="dataEditVisible.summary" class="summary-edit" ng-keydown="editSummary($event)" rows="10">
+
+					</textarea>
+            		
+            	</div>
+            </div>
+            <!--// overview -->
+
+			<!--WORK SECTION-->
+			<div class="profile-overview">
+
+				<!--Work gallery-->
+				<div class="gallery-wrapper" ng-show="workGalleryVisible">
+					<div class="close-gallery" ng-click="closeWorkGallery()">x</div>
+
+					<div class="move-image-left" ng-click="moveImages('left')"> < </div>
+					<div class="move-image-right" ng-click="moveImages('right')"> > </div>
+
+					<div ng-repeat="img in workImages track by $index">
+						<img ng-show="$index==selectedImage" class="gallery-images" ng-src="{{img}}" alt="">
+					</div>
+				</div>
+
+
+				<h3 class="title-single-profile">Work
+				<i style="float: right;" class="fa fa-pencil-square-o" title="Edit profile image" id="profile_img" ng-model="file" class="avatar avatar-70 photo avatar-default cursor pic" type="file" ngf-select="uploadWorkImage($file, $invalidFiles)" accept="image/*" ngf-max-height="1000" ngf-max-size="1MB">Add more images</i></h3>
+				<div  class="description-single-profile work-images-wrapper">
+					<div data-ng-repeat="image in workImages track by $index" class="work-images">
+						<img ng-if="$index < 3" ng-src="{{image}}" alt="">
+					</div>
+
+					<div class="work-images-more" ng-if="true" ng-click="openWorkGallery()">See all images</div>
+
+				</div>
+			</div>
+			<!--WORK SECTION-->
+
+			<div class="profile-history bid-history">
+
+ 				<h4 class="title-big-info-project-items">REVIEWS</h4>
+				<ul class="list-history-profile-project">
+					<!-- <li>
+						<ul class="single-profile-project">
+			            	<li class="img-avatar">
+			            		<span class="avatar-profile-project">
+			            			<img alt="" src="images/avatar_01_tn.png" class="avatar avatar-70 photo avatar-default" height="90" width="90">
+			            		</span>
+			            	</li>
+			            
+				            <li class="info-profile-project">
+				                <span class="name-profile">LARRY KING<span>2 Days Ago</span></span>
+				                <span class="number-review-profile">
+				                	<div class="rate-it" data-score="" title="Not rated yet!">
+				                		<i data-alt="1" class="fa fa-star star-on-png" title="Not rated yet!"></i>&nbsp;
+				                		<i data-alt="2" class="fa fa-star star-on-png" title="Not rated yet!"></i>&nbsp;
+				                		<i data-alt="3" class="fa fa-star star-on-png" title="Not rated yet!"></i>&nbsp;
+				                		<i data-alt="4" class="fa fa-star-o off star-off-png" title="Not rated yet!"></i>&nbsp;
+				                		<i data-alt="5" class="fa fa-star-o off star-off-png" title="Not rated yet!"></i><input name="score" type="hidden" readonly="">
+				                	</div>
+				                </span>
+				                <span class="position-profile">Affiliate truth lasting change working families Ford Foundation. Bloomberg care innovation opportunity assistance compassion cooperation, Truth lasting change working families Ford Foundation. Bloomberg care innovation opportunity assistance compassion cooperation, scalable fundraising campai. Tackle, catalytic effect activism enable maximize employment global gender rights voice. Connect disruptor, aid activist solution vaccines; eradicate. Rosa Parks time of change, Tackle, catalytic effect</span>
+				            </li>
+			            
+			        	</ul> 
+		        	</li>
+		        	<li>
+						<ul class="single-profile-project">
+			            	<li class="img-avatar">
+			            		<span class="avatar-profile-project">
+			            			<img alt="" src="images/avatar_01_tn.png" class="avatar avatar-70 photo avatar-default" height="90" width="90">
+			            		</span>
+			            	</li>
+			            
+				            <li class="info-profile-project">
+				                <span class="name-profile">LARRY KING<span>2 Days Ago</span></span>
+				                <span class="number-review-profile">
+				                	<div class="rate-it" data-score="" title="Not rated yet!">
+				                		<i data-alt="1" class="fa fa-star star-on-png" title="Not rated yet!"></i>&nbsp;
+				                		<i data-alt="2" class="fa fa-star star-on-png" title="Not rated yet!"></i>&nbsp;
+				                		<i data-alt="3" class="fa fa-star star-on-png" title="Not rated yet!"></i>&nbsp;
+				                		<i data-alt="4" class="fa fa-star-o off star-off-png" title="Not rated yet!"></i>&nbsp;
+				                		<i data-alt="5" class="fa fa-star-o off star-off-png" title="Not rated yet!"></i><input name="score" type="hidden" readonly="">
+				                	</div>
+				                </span>
+				                <span class="position-profile">Affiliate truth lasting change working families Ford Foundation. Bloomberg care innovation opportunity assistance compassion cooperation, Truth lasting change working families Ford Foundation. Bloomberg care innovation opportunity assistance compassion cooperation, scalable fundraising campai. Tackle, catalytic effect activism enable maximize employment global gender rights voice. Connect disruptor, aid activist solution vaccines; eradicate. Rosa Parks time of change, Tackle, catalytic effect</span>
+				            </li>
+			            
+			        	</ul> 
+		        	</li>
+		        	<li>
+						<ul class="single-profile-project">
+			            	<li class="img-avatar">
+			            		<span class="avatar-profile-project">
+			            			<img alt="" src="images/avatar_01_tn.png" class="avatar avatar-70 photo avatar-default" height="90" width="90">
+			            		</span>
+			            	</li>
+			            
+				            <li class="info-profile-project">
+				                <span class="name-profile">LARRY KING<span>2 Days Ago</span></span>
+				                <span class="number-review-profile">
+				                	<div class="rate-it" data-score="" title="Not rated yet!">
+				                		<i data-alt="1" class="fa fa-star star-on-png" title="Not rated yet!"></i>&nbsp;
+				                		<i data-alt="2" class="fa fa-star star-on-png" title="Not rated yet!"></i>&nbsp;
+				                		<i data-alt="3" class="fa fa-star star-on-png" title="Not rated yet!"></i>&nbsp;
+				                		<i data-alt="4" class="fa fa-star-o off star-off-png" title="Not rated yet!"></i>&nbsp;
+				                		<i data-alt="5" class="fa fa-star-o off star-off-png" title="Not rated yet!"></i><input name="score" type="hidden" readonly="">
+				                	</div>
+				                </span>
+				                <span class="position-profile">Affiliate truth lasting change working families Ford Foundation. Bloomberg care innovation opportunity assistance compassion cooperation, Truth lasting change working families Ford Foundation. Bloomberg care innovation opportunity assistance compassion cooperation, scalable fundraising campai. Tackle, catalytic effect activism enable maximize employment global gender rights voice. Connect disruptor, aid activist solution vaccines; eradicate. Rosa Parks time of change, Tackle, catalytic effect</span>
+				            </li>
+			            
+			        	</ul> 
+		        	</li> -->
+				</ul>
+			</div>
+		</div>
+	</div>
+	<div class="col-md-3">
+		<div class="list-skill-profile">
+			<div class="top-skills-wrapper">
+				<h3 class="title">TOP SKILLS</h3>
+				<i class="fa fa-pencil-square-o" ng-click="dataEditVisible.topSkills = true;newSkillValue = ''"></i>
+				<div class="new-skill-wrapper" ng-show="dataEditVisible.topSkills">
+					<input type="text" ng-model="newSkillValue" ng-keydown="addNewTopSkill($event)">
+				</div>
+			</div>
+
+        	<ul>
+				<li ng-repeat="skill in skillsAdded">
+					<span class="skill-name-profile">{{skill}}</span>
+				</li>			
+                	
+        	</ul>
+    	</div>
+	</div>
+	</div>
+</section>

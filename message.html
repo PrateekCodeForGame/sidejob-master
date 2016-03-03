@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Sidejob</title>
+	<link rel="stylesheet" href="css/font-awesome.min.css">
+	<link rel="stylesheet" href="css/bootstrap.min.css">
+	<link rel="stylesheet" href="css/base-styles.css">
+	<link rel="stylesheet" href="css/modules.css">
+	<link rel="stylesheet" href="css/navbar.css">
+	<link rel="stylesheet" href="css/navbar2.css">
+	<link rel="stylesheet" href="css/searchbox.css">
+	<link rel="stylesheet" href="css/chat-ui.css">
+	<link rel="stylesheet" href="css/style.css">
+
+	<link href='https://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+
+	<script type="text/javascript" src="js/jquery.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.0-beta.2/angular-route.js"></script>
+	<script type="text/javascript" src="css/js/navbar.js"></script>
+	<script src="/js/bootstrap-slider.js"></script>
+	<script type="text/javascript" src="/js/ng-file-upload/ng-file-upload.js"></script>
+	<script type="text/javascript" src="/js/ng-file-upload/ng-file-upload-shim.js"></script>
+	<script type="text/javascript" src="/js/bootstrap-slider.js"></script>
+	<script rel="stylesheet" href="/css/bootstrap-slider.css"></script>
+	<script src="//angular-ui.github.io/bootstrap/ui-bootstrap-tpls-1.1.1.js"></script>
+    <link href="//netdna.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.9/angular-animate.js"></script>
+
+	<!-- <base href="/"> -->
+</head>
+<body ng-app="mainApp" ng-controller="mainController as main" style="overflow: auto;">
+	<div ng-if="!signup"><!--wrapper-->
+	<header class="hub-header">      
+      <a class="hub-overlay-nav-left-trigger" href="" onclick="toggleFirstMenu()">
+         <span class="hub-menu-icon"></span>
+      </a>
+      <div class="hub-logo">
+         <a href="index.html" class="navbar-brand inverse">
+         	Sidejob
+            <!--<img src="images/nav-logo.png" alt="Hub">-->
+         </a>
+      </div>			
+      
+      <!-- SEARCH BOX -->
+      <div id="morphsearch" class="morphsearch">
+         <form class="morphsearch-form">            
+            <input class="morphsearch-input" type="search" placeholder="Search..."/>
+            <!--button class="morphsearch-submit" type="submit">Search</button-->
+
+         </form>
+         <!-- Auto complete search results -->
+         <div class="morphsearch-content">
+           
+         </div><!-- /morphsearch-content -->
+         <!-- End of Autocomplete search results -->
+         <span class="morphsearch-close"></span>
+	 
+
+      </div><!-- /morphsearch -->
+      <div class="morphsearch-overlay">
+
+      </div>
+      <!-- End of SEARCH BOX -->     
+
+
+      <ul class="top-head-list fonting">
+      	<li><a href="">Hello {{userName}}</a></li>
+      </ul>
+
+
+      <a class="hub-overlay-nav-right-trigger profile-anchor" href="">
+         <img ng-src="{{userLogo}}" alt="profile pic" style="height: 40px;"/>
+      </a>
+
+      <a class="hub-overlay-nav-right-trigger" href="" onclick="toggleSecondMenu()" ng-click="showMenu()" style="width: 50px;">
+         <i class="fa fa-cog fa-2x" style="padding: 5px; color: black;"></i>
+      </a>
+      
+
+
+        <div class="sidebar-content" id="first-menu-content">
+     	  <ul class="sidebar-links">
+     	 	<li> <a href="#/dashboard" ng-click="main.page='dashboard'">Home</a> </li>
+     	 	<li> <a href="">Alerts</a> </li>
+     	 	<li> <a href="#/message" ng-click="main.page='inbox'">Inbox</a> </li>
+     	 	<li> <a href="">Your Jobs</a> </li>
+     	 </ul>
+    	</div>
+
+    	 <div ng-show="showSecondMenu" class="sidebar-content" id="second-menu-content" style="position: relative;float: right;top: -10px;background-color: whitesmoke; min-height: 200; overflow: auto;">
+    	 	<ul ng-show="showOptions" class="sidebar-links">
+        <li style="border: 1px solid #e6e6e6; background-color: #e6e6e6;"> <a style="color: black; text-decoration: none;" href="/logout"><i class="fa fa-sign-out fa-lg" style="padding: 5px; padding-right: 10px;"></i>Logout</a> </li>
+        <li style="border: 1px solid #e6e6e6; background-color: #e6e6e6;"> <a style="color: black; text-decoration: none;" href="" ng-click="menuClicked('email')"><i class="fa fa-envelope fa-lg" style="padding: 5px; padding-right: 10px;"></i>Account</a> </li>
+        <li style="border: 1px solid whitesmoke; background-color: whitesmoke;"> <a style="color: black; padding-top: 25px; text-decoration: none;" href=""><i class="fa fa-pencil-square-o fa-lg" style="padding: 5px; padding-right: 10px;"></i>Edit page</a> </li>
+     	 	<li style="border: 1px solid #e6e6e6; background-color: #e6e6e6;"> <a style="color: black; text-decoration: none;" href="" ng-click="menuClicked('name')"><i class="fa fa-user fa-lg" style="padding: 5px; padding-right: 10px;"></i>Name</a> </li>
+     	 	<li style="border: 1px solid #e6e6e6; background-color: #e6e6e6;"> <a style="color: black; text-decoration: none;" href="" ng-click="menuClicked('bio')"><i class="fa fa-align-left fa-lg" style="padding: 5px; padding-right: 10px;"></i>Bio</a> </li>
+     	 	<li style="border: 1px solid #e6e6e6; background-color: #e6e6e6;"> <a style="color: black; text-decoration: none;" href="" ng-click="menuClicked('photo')"><i class="fa fa-picture-o fa-lg" style="padding: 5px; padding-right: 10px;"></i>Photo</a> </li>
+     	 	<li style="border: 1px solid #e6e6e6; background-color: #e6e6e6;"> <a style="color: black; text-decoration: none;" href="" ng-click="menuClicked('location')"><i class="fa fa-map-marker fa-lg" style="padding: 5px; padding-right: 10px;"></i>Location</a> </li>
+        <li style="border: 1px solid #e6e6e6; background-color: #e6e6e6;"> <a style="color: black; text-decoration: none;" href="" ng-click="menuClicked('services')"><i class="fa fa-heart fa-lg" style="padding: 5px; padding-right: 10px;"></i>Services</a> </li>
+        <li style="border: 1px solid #e6e6e6; background-color: #e6e6e6;"> <a style="color: black; text-decoration: none;" href="" ng-click="menuClicked('skills')"><i class="fa fa-wrench fa-lg" style="padding: 5px; padding-right: 10px;"></i>Skills</a> </li>
+        <li style="border: 1px solid #e6e6e6; background-color: #e6e6e6;"> <a style="color: black; text-decoration: none;" href="" ng-click="menuClicked('hire')"><i class="fa fa-life-ring fa-lg" style="padding: 5px; padding-right: 10px;"></i>Hire Me</a> </li>
+     	 </ul>
+
+       <div ng-show="editOptions.name" style="background-color: whitesmoke;">
+       <div class="modal-header">
+            <!-- <span class="modal-title" style="text-align: center; float: left; padding-top: 20px;
+"></span> -->
+            <h3 class="modal-title" style="text-align: center; padding-top: 20px;
+"><i class="fa fa-arrow-left" style="float: left;" ng-click="dismissSettings('name')"></i>Name</h3>
+        </div>
+        <div class="modal-body" style="text-align: center">
+            <div style="padding-bottom: 20px;"><div><strong>Firstname</strong></div><div><input ng-model="userData.firstname">
+          </input></div></div>
+          <div style="padding-bottom: 20px;"><div><strong>Lastname</strong></div><div><input ng-model="userData.lastname">
+          </input></div></div>
+        </div>
+        <div class="modal-footer" style="text-align: center">
+            <button class="btn btn-primary" type="button" ng-click="ok('name')">Save</button>
+        </div>
+    	</div>
+
+      <div ng-show="editOptions.bio" style="background-color: whitesmoke;">
+        <div class="modal-header">
+            <h3 class="modal-title" style="text-align: center; padding-top: 20px;
+"><i class="fa fa-arrow-left" style="float: left;" ng-click="dismissSettings('bio')"></i>Enter your bio</h3>
+        </div>
+        <div class="modal-body" style="text-align: center">
+            <div style="padding-bottom: 20px;"><div><textarea style="padding-top: 10px;" ng-model="userData.summary">
+          </textarea></div></div>
+        </div>
+        <div class="modal-footer" style="text-align: center">
+            <button class="btn btn-primary" type="button" ng-click="ok('bio')">Save</button>
+        </div>
+    </div>
+
+    <div ng-show="editOptions.photo" style="background-color: whitesmoke;">
+        <div class="modal-header">
+            <h3 class="modal-title" style="text-align: center; padding-top: 20px;
+"><i class="fa fa-arrow-left" style="float: left;" ng-click="dismissSettings('photo')"></i>Upload your profile picture</h3>
+        </div>
+        <div class="modal-body" style="text-align: center">
+            <div  style="padding-bottom: 20px;"><span class="avatar-profile">
+          <img alt="" ng-src="{{userData.avatar}}" title="Edit profile image" id="profile_img" class="avatar avatar-70 photo avatar-default cursor pic" height="200" width="200" >
+      </span></div>
+        <div style="padding-bottom: 20px;">
+        <button class="btn btn-primary" type="file" ngf-select="upload($file, $invalidFiles)" accept="image/*" ngf-max-height="1000" ngf-max-size="1MB" ng-model="file">Change Photo</button>
+        </div>
+        </div>
+        <div class="modal-footer" style="text-align: center">
+            <button class="btn btn-primary" type="button" ng-click="ok('photo')">Save</button>
+        </div>
+    </div>
+
+    <div ng-show="editOptions.location" style="background-color: whitesmoke;">
+        <div class="modal-header">
+            <h3 class="modal-title" style="text-align: center; padding-top: 20px;
+"><i class="fa fa-arrow-left" style="float: left;" ng-click="dismissSettings('location')"></i>Location</h3>
+        </div>
+        <div class="modal-body" style="text-align: center">
+            <div style="padding-bottom: 20px;"><div><input ng-model="userData.address">
+          </input></div></div>
+        </div>
+        <div class="modal-footer" style="text-align: center">
+            <button class="btn btn-primary" type="button" ng-click="ok('location')">Save</button>
+        </div>
+    </div>
+
+    <div ng-show="editOptions.hire" style="background-color: whitesmoke;">
+        <div class="modal-header">
+            <h3 class="modal-title" style="text-align: center; padding-top: 20px;
+"><i class="fa fa-arrow-left" style="float: left;" ng-click="dismissSettings('hire')"></i>Hire me</h3>
+        </div>
+        <div class="modal-body" style="text-align: center">
+            <div style="padding-bottom: 20px;"><div><strong>Contact me via email:</strong></div><div><input ng-model="userData.email">
+          </input></div></div>
+        </div>
+        <div class="modal-body" style="text-align: center">
+            <div style="padding-bottom: 20px;"><div><strong>Contact me via phone:</strong></div><div><input ng-model="userData.phone">
+          </input></div></div>
+        </div>
+        <div class="modal-footer" style="text-align: center">
+            <button class="btn btn-primary" type="button" ng-click="ok('hire')">Save</button>
+        </div>
+    </div>
+
+    <div ng-show="editOptions.services" style="background-color: whitesmoke;">
+        <div class="modal-header">
+            <h3 class="modal-title" style="text-align: center; padding-top: 20px;
+"><i class="fa fa-arrow-left" style="float: left;" ng-click="dismissSettings('services')"></i>Services you provide ?</h3>
+        </div>
+        <div class="modal-body" style="text-align: center">
+            <div style="padding-bottom: 20px;"><div><strong>General Category</strong></div><div><select ng-model="userData.generalJob" ng-change="setCategories()">
+            <option ng-repeat="(key, value) in categories" value="{{key}}">{{key}}</option>
+          </select></div></div>
+        <div style="padding-bottom: 20px;"><div><strong>Specific Category</strong></div><div><select ng-model="userData.specificJob">
+            <option ng-repeat="category in specificCategory" value="{{category}}">{{category}}</option>
+          </select></div>
+        </div>
+        </div>
+        <div class="modal-footer" style="text-align: center">
+            <button class="btn btn-primary" type="button" ng-click="ok('services')">Save</button>
+        </div>
+    </div>
+
+    <div ng-show="editOptions.skills" style="background-color: whitesmoke;">
+        <div class="modal-header">
+            <h3 class="modal-title" style="text-align: center; padding-top: 20px;
+"><i class="fa fa-arrow-left" style="float: left;" ng-click="dismissSettings('skills')"></i>Edit your skills</h3>
+        </div>
+        <div class="modal-body" style="text-align: center">
+            <div style="padding-bottom: 20px;"><div><strong>Enter the skills separated by comma(',')</strong></div><div><input style="padding-top: 10px;" ng-model="userData.topSkills">
+          </input></div></div>
+        </div>
+        <div class="modal-footer" style="text-align: center">
+            <button class="btn btn-primary" type="button" ng-click="ok('skills')">Save</button>
+        </div>
+    </div>
+
+    <div ng-show="editOptions.email" style="background-color: whitesmoke;">
+        <div class="modal-header">
+            <h3 class="modal-title" style="text-align: center; padding-top: 20px;
+"><i class="fa fa-arrow-left" style="float: left;" ng-click="dismissSettings('email')"></i>Email Id</h3>
+        </div>
+        <div class="modal-body" style="text-align: center">
+            <div style="padding-bottom: 20px;"><div><input style="padding-top: 10px;" ng-model="userData.email">
+          </input></div></div>
+        </div>
+        <h3 class="modal-title" style="text-align: center; padding-top: 20px;
+">Change Password</h3>
+        <div class="modal-body" style="text-align: center">
+            <div style="padding-bottom: 20px;"><div><strong>Current Password</strong></div><div><input type="password" ng-model="passwordSet.checkPassword">
+          </input></div></div>
+          <div style="padding-bottom: 20px;"><div><strong>New Password</strong></div><div><input type="password" ng-model="passwordSet.newPassword">
+          </input></div></div>
+          <div style="padding-bottom: 20px;"><div><strong>Confirm Password</strong></div><div><input type="password" ng-model="passwordSet.confirmNewPassword">
+          </input></div></div>
+        </div>
+        <div class="modal-footer" style="text-align: center">
+            <button class="btn btn-primary" type="button" ng-click="ok('email')">Save</button>
+        </div>
+        <div ng-show="messageError" style="color: red;">{{messageError}}</div>
+    </div>
+      
+	</header>
+
+	<section class="dashboard-subheader">
+		<div class="container-fluid">
+			<div class="menus">
+				<ul class="list-inline">
+					<li class="cursor" ng-cloak ng-class="{'active':main.page=='dashboard'}"><a href="#/dashboard" class="tab-line" ng-click="main.page='dashboard'">DASHBOARD</a></li>
+					<li class="cursor" ng-cloak ng-class="{'active':main.page=='inbox'}"><a href="#/message" class="tab-line" ng-click="main.page='inbox'">INBOX</a></li>
+					<li class="cursor" ng-cloak ng-class="{'active':main.page=='explore'}"><a href="#/explore" class="tab-line" ng-click="main.page='explore'">EXPLORE</a></li>
+					<li class="cursor" ng-cloak ng-class="{'active':main.page=='profile'}"><a href="#/profile" class="tab-line" ng-click="main.page='profile'">PROFILE</a></li>
+				</ul>
+			</div>
+		</div>
+	</section>
+
+	<section class="banner Banner">
+		<div class="banner-title text-center">
+			<h3 class="title-header">{{main.page | uppercase}}</h3>
+		</div>
+	</section>
+</div><!--end wrapper-->
+
+<div ng-view><!--container-->
+	
+
+</div><!--end container-->
+	<footer ng-if="!signup" class="chat-footer">
+		<div ng-repeat="user in main.users" id="{{user.name + user.id}}" class="chat-box chat-messages">
+			<div class="chat-box-handle" onclick="$(this).closest('.chat-box').toggleClass('open')">
+				<span class="status status-on"></span>
+				<span class="handle-title">{{user.name}}</span>
+				<span class="pull-right" style="margin-top:15px" ng-click="main.closeChatWindow('#' + user.name + user.id)">X</span>
+			</div>
+			<div id="chat-msgs{{user.name+user.id}}" class="chat-box-content">
+				<div ng-repeat="message in user.messages" class="media message">
+					<div class="media-left" ng-if="message.sender==main.user_">
+						<img class="media-object img-rounded" src="http://placehold.it/40x40/00ffff/00ffff" alt="User">
+					</div>
+					<div id="msg{{$index}}" class="media-body">
+						<p>{{message.msg}}</p>
+					</div>
+					<div class='media-right' ng-if="message.sender!=main.user_">
+						<img class='media-object img-rounded' src='http://placehold.it/40x40/ff00ff/ff00ff' alt='User'>
+					</div>
+				</div>
+			</div>
+
+			
+
+			<div class="input-cont">
+				<input type="text" id="chat-msg{{user.name+user.id}}" class="input-mes" placeholder="Type a message..." ng-keypress="main.sendMessage($event,'#chat-msg'+user.name+user.id,user.id)"/>
+			</div>
+		</div>
+		
+		<div class="chat-box open chat-userlist">
+			<div class="chat-box-handle" onclick="$(this).closest('.chat-box').toggleClass('open')">
+				<span class="handle-title"><b>User List</b></span>
+			</div>
+			<div class="chat-box-content">
+
+				<div ng-repeat="user in main.users" class="media userinfo">
+				  <div class="media-left">
+						<span class="status status-on"></span>
+				  </div>
+				  <div class="media-body" ng-click="main.openChatWindow('#' + user.name + user.id)">
+				    <b>{{user.name}}</b>
+				  </div>
+				</div>
+
+			</div>
+			<div class="input-cont">
+				<input type="text" class="input-mes" placeholder="" />
+			</div>
+		</div>
+	</footer>
+
+	<footer class="footer-main-outer footer-main-messages">
+		<div class="footer-container">
+			<div class="container">
+				<div class="row footer-linkrow">
+
+					<a class="link-contrast" href="#">About</a>
+					<a class="link-contrast" href="#">Blog</a>
+					<a class="link-contrast" href="#">Jobs</a>
+					<a class="link-contrast" href="#">Terms</a>
+					<a class="link-contrast" href="#">Privacy</a>
+					<a class="link-contrast" href="#">Help &amp; Support</a>
+
+
+					<div class="clearfix"></div>
+				</div>
+
+				<section class="foot-social-icon">
+					<div class="social-icons">
+						<ul>
+							<li><a href="#"><i class="fa fa-md fa-facebook"></i></a></li>
+							<li><a href="#"><i class="fa fa-md fa-twitter"></i></a></li>
+							<li><a href="#"><i class="fa fa-md fa-instagram"></i></a></li>
+						</ul>
+					</div>
+					<p class="copyright-txt">&copy; 2016 SideJob</p>
+				</section>
+
+
+			</div>
+		</div>
+	</footer>
+
+	<script type="text/javascript" src="js/bootstrap.min.js"></script>
+	<script src="/js/socket.io.js"></script>
+	<script type="text/javascript" src="js/main_app.js"></script>
+
+	<!-- Signup page code -->
+	<script type="text/ng-template" id="step1.html">
+        <div class="modal-header" ng-init="step = 1">
+            <h3 class="modal-title" style="text-align: center; padding-top: 20px;
+">Hello {{userData.name}}!</h3>
+        </div>
+        <div class="modal-body" style="text-align: center">
+        	<div style="padding-bottom: 20px;">Upload your profle picture. Remember this picture is supposed to represent your professional brand</div>
+            <div  style="padding-bottom: 20px;"><span class="avatar-profile">
+    			<img alt="" ng-src="{{userData.avatar}}" title="Edit profile image" id="profile_img" class="avatar avatar-70 photo avatar-default cursor pic" height="200" width="200" >
+			</span></div>
+    		<div style="padding-bottom: 20px;">
+    		<button class="btn btn-primary" type="file" ngf-select="upload($file, $invalidFiles)" accept="image/*" ngf-max-height="1000" ngf-max-size="1MB" ng-model="file">Upload</button>
+    		</div>
+        </div>
+        <div class="modal-footer" style="text-align: center">
+            <button class="btn btn-primary" ng-disabled="isDisabled" type="button" ng-click="ok()">Continue --></button>
+        </div>
+    </script>
+
+    <script type="text/ng-template" id="step2.html">
+        <div class="modal-header" ng-init="step = 2">
+            <h3 class="modal-title" style="text-align: center; padding-top: 20px;
+">What type of service do you provide ?</h3>
+        </div>
+        <div class="modal-body" style="text-align: center">
+        <div style="padding-bottom: 20px;"><div><strong>General Category</strong></div><div><select style="width: 450px; height: 30px; padding-top: 10px;" ng-model="userData.generalJob" ng-change="setCategories()">
+            <option ng-repeat="(key, value) in categories" value="{{key}}">{{key}}</option>
+          </select></div></div>
+        <div style="padding-bottom: 20px;"><div><strong>Specific Category</strong></div><div><select style="width: 450px; height: 30px; padding-top: 10px;" ng-model="userData.specificJob" ng-change="valueChanged()">
+            <option ng-repeat="category in specificCategory" value="{{category}}">{{category}}</option>
+          </select></div>
+        </div>
+        </div>
+        <div class="modal-footer" style="text-align: center">
+            <button class="btn btn-primary" ng-disabled="isDisabled" type="button" ng-click="ok()">Continue --></button>
+        </div>
+    </script>
+
+    <script type="text/ng-template" id="step3.html">
+        <div class="modal-header" ng-init="step = 3">
+            <h3 class="modal-title" style="text-align: center; padding-top: 20px;
+">Location of your service</h3>
+        </div>
+        <div class="modal-body" style="text-align: center">
+        	<div style="padding-bottom: 20px;">This determines where you appear in search results and will determine you distance to clients</div>
+            <div style="padding-bottom: 20px;"><div><strong>Location</strong></div><div><input style="width: 450px; height: 30px; padding-top: 10px;" ng-model="userData.address" ng-change="valueChanged()">
+    			</input></div></div>
+        </div>
+        <div class="modal-footer" style="text-align: center">
+            <button class="btn btn-primary" ng-disabled="isDisabled" type="button" ng-click="ok()">Continue --></button>
+        </div>
+    </script>
+
+    <script type="text/ng-template" id="step4.html">
+        <div class="modal-header" ng-init="step = 4">
+            <h3 class="modal-title" style="text-align: center; padding-top: 20px;
+">What name would you like your service to appear as ?</h3>
+        </div>
+        <div class="modal-body" style="text-align: center">
+        	<div style="padding-bottom: 20px;">Choose something that accurately describes the services you offer and is appealing at glance - for example, "UI/UX Design"</div>
+            <div style="padding-bottom: 20px;"><div><strong>Job or service name</strong></div><div><input style="width: 450px; height: 30px; padding-top: 10px;" ng-model="userData.job" ng-change="valueChanged()">
+    			</input></div></div>
+        </div>
+        <div class="modal-footer" style="text-align: center">
+            <button class="btn btn-primary" ng-disabled="isDisabled" type="button" ng-click="ok()">Continue --></button>
+        </div>
+    </script>
+
+    <script type="text/ng-template" id="step5.html">
+        <div class="modal-header" ng-init="step = 5">
+            <h3 class="modal-title" style="text-align: center; padding-top: 20px;
+">Please enter your skills</h3>
+        </div>
+        <div class="modal-body" style="text-align: center">
+        	<div style="padding-bottom: 20px;">Enter all the skills you can work with, more skills will increase your chances of getting hired</div>
+            <div style="padding-bottom: 20px;"><div><strong>Enter the skills separated by comma(',')</strong></div><div><input style="width: 450px; height: 30px; padding-top: 10px;" ng-model="userData.topSkills" ng-change="valueChanged()">
+    			</input></div></div>
+        </div>
+        <div class="modal-footer" style="text-align: center">
+            <button class="btn btn-primary" ng-disabled="isDisabled" type="button" ng-click="ok()">Continue --></button>
+        </div>
+    </script>
+
+</body>
+</html>

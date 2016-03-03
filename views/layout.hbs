@@ -1,0 +1,402 @@
+  <!DOCTYPE html>
+  <html>
+  <head>
+    <title>Home</title>
+    <link href='https://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="css/base-styles.css">
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="css/navbar.css">
+    <link rel="stylesheet" href="/css/navbar2.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+    <script src="//angular-ui.github.io/bootstrap/ui-bootstrap-tpls-1.1.2.js"></script>
+    <link href="//netdna.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
+
+
+
+
+
+    <style type="text/css">
+      @media(min-width:768px){
+        .modal-dialog{
+          width: 500%;
+          padding-top: 0px;
+          margin-top: 0px;
+        }
+        #emailsignup .modal-dialog{
+          padding-top: 0%;
+        }
+      }
+      .modal-content{
+        float: left;
+        border-radius: 2px;
+      }
+      .form-control-icon{
+        position: absolute;
+        top: 12px;
+        right: 10px;
+        z-index: 2;
+        width: 34px;
+        height: 34px;
+        text-align: center;
+        pointer-events: none;
+      }
+      .btn-fb{
+        border-color: #3B5998;
+        border-bottom-color: #263a63;
+        background-color: #3B5998;
+        color: #fff;
+      }
+      .btn-social{
+        border-radius: 2px;
+        width: 100%;
+        /*min-height: 46px;*/
+        font-size: 15px;
+        font-weight: bold;
+        text-align: center;
+        font-family: georgia;
+        padding: 9px 27px;
+        margin-bottom: 10px;
+      }
+      .dob-right{
+        padding-right: 1px;
+      }
+      .dob-left{
+        padding-left: 1px;
+      }
+      .dob-both{
+        padding-left: 1px;
+        padding-right:1px;
+      }
+      .modal-form.field-control{
+        width: 100%;
+      }
+      .color-link-red a{
+        color: #ff5a5f;
+      }
+      .btn-red{
+        background-color: #ff5a5f;
+        color: #FFF;
+      }
+      .btn-red:hover{
+        background-color: #ff5a5f;
+        color: #FFF;
+
+      }
+      .text-small{
+        font-size: 12px;
+        font-weight: normal;
+      }
+      .social-icon{
+        font-size: 20px;
+        margin-right: 10px;
+      }
+
+      /* Custom header */
+      .custom-header{
+       background: #fff;
+       max-height: 50px;
+     }
+
+     .custom-header img{
+      max-height: 75px;
+    }
+    .navbar-brand {
+      padding: 0;
+    }
+
+    .header-btn{
+      float: right;
+      /*margin-top: 20px;*/
+      margin-left: 5px;
+      padding:8px 17px;
+      background: #009cde;
+      color: #fff;
+      border-radius: 5px;
+      text-align: center;
+    }
+    .header-btn:hover{
+      text-decoration: none;
+      color: #fff;
+      opacity: 0.80;
+      transition:all 0.3s;
+    }
+    .header-btn.signup{
+      background: #dddddd;
+      color: #33333d;
+    }
+
+    .profile-anchor {
+      width: 53px;
+      height: auto;
+      border-radius:50px;
+      float:right;
+    }
+
+
+
+    @media only screen and (min-width:479px) and (max-width:559px) {
+      .header-btn{
+       margin-top: 19px;
+     } 
+   }
+
+   @media only screen and (max-width:479px) {
+    .custom-header img{
+      min-height: 70px;
+    }
+    .header-btn{ 
+      float: none; 
+      display: block;
+      margin: 0;
+      padding:5px 14px;                
+    }
+    .header-btn.signup{
+      margin-top: 4px;
+      margin-bottom: 2px;
+    } 
+  }
+</style>
+</head>
+<body style="padding-top: 0px">
+<div id="top-header" class="site-head custom-header">
+
+   <div class="hub-overlay-nav-left-trigger" href="" onclick="toggleFirstMenu()">
+    <span class="hub-menu-icon"></span>
+  </div>
+
+  {{#if user}}
+  <div class="sidebar-content" id="first-menu-content">
+   <ul class="sidebar-links">
+     <li> <a href="/">Home</a> </li>
+     <li> <a href="" data-toggle="modal" >Alerts</a> </li>
+     <li> <a href="/message" data-toggle="modal" >Inbox</a> </li>
+     <li> <a href="">Help</a> </li>
+   </ul>
+ </div>
+ {{else}}
+ <div class="sidebar-content" id="first-menu-content">
+   <ul class="sidebar-links">
+     <li> <a href="">Home</a> </li>
+     <li> <a href="#" data-toggle="modal" href="#" data-target="#emailsignup" data-dismiss="modal">Sign Up</a> </li>
+     <li> <a href="#" data-toggle="modal" href="#" data-target="#signin" data-dismiss="modal">Login</a> </li>
+     <li> <a href="">Help</a> </li>
+   </ul>
+ </div>
+ {{/if}}
+
+ <div class="container">
+  <div class="row">
+
+
+
+    <div class="col-xs-6">
+      <a href="#" class="inverse navbar-brand">Sidejob <!-- <img class="img-responsive" src="images/nav-logo.png" height="20px"> --> </a>
+    </div><!-- end .6 -->
+    <div class="col-xs-6">
+      {{#if user}}
+      <!--<a href="/account" id="home-page-logo" class="profile-anchor"><img class="profile-anchor" src="{{user.avatar}}" alt="profile pic" /></a>-->
+      <a href="/logout" class="header-user">Logout</a>
+
+      <a href="/message#/profile" class="header-user">Hello {{user.firstName}}</a>
+
+      {{else}}
+      <a href="#" class="header-btn signup" data-toggle="modal" href="#" data-target="#emailsignup" data-dismiss="modal">Sign Up</a>
+      <a href="#" class="header-btn" data-toggle="modal" href="#" data-target="#signin" data-dismiss="modal">Login</a>
+      {{/if}}
+    </div>
+  </div>
+
+</div>
+
+  <div class="modal" id="emailsignup" data-backdrop="static" style="padding-left: 0px;">
+    <div class="modal-dialog">
+      <div class="modal-content" style="width: 20%">
+        <div class="modal-body">
+        <header><a href="#" data-dismiss="modal" style="float: right; padding: 10px;"><i class="fa fa-times fa-2x"></i></a></header>
+          <section>
+            <div class="form-wrapper small-gap">
+              <div class="heading-box text-center">
+                <h3 class="heading">SIGN UP FOR SIDEJOB</h3>
+                <div class="form-row text-center">
+                  <p>Already have an account? <a href="#" data-toggle="modal" data-target="#signin" data-dismiss="modal">Log In</a></p>
+                  </div>
+                  <div class="form-row text-center">
+                  <p>OR</p>
+                  </div>
+                <p class="sub-heading">Create your account in just minutes</p>
+              </div>
+              <form action="/signup" method="POST" role="form">
+                <div class="form-section">
+                  <div class="form-title-box">
+                    <span class="title">Account</span>
+                    <span class="note pull-right"><span>*</span>required</span>
+                  </div>
+                  <div class="clearfix"></div>
+
+                  <div class="form-row">
+                    <label for=""><span>*</span>NAME</label>
+                  </div>
+
+                  <div class="form-row row">
+                    <div class="col-sm-6">
+                      {{!-- <input type="Password" placeholder="First Name" /> --}}
+                      <div class="form-group">
+                        <input type="text" class="modal-form field-control" id="" placeholder="First Name" name="firstName" aria-describedby="inputSuccess2Status">
+                        <span id="inputSuccess2Status" class="sr-only">(success)</span>
+                      </div>
+                    </div>
+                    <div class="col-sm-6">
+                      <div class="form-group">
+                        <input type="text" class="modal-form field-control" id="" placeholder="Last Name" name="lastName" aria-describedby="inputSuccess2Status">
+                        <span id="inputSuccess2Status" class="sr-only">(success)</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="form-row">
+                    <label for=""><span>*</span>EMAIL</label><br />
+                  </div>
+                  <div class="form-row">
+                    <div class="form-group">
+                      <input type="email" name="email" class="modal-form field-control" id="" placeholder="name@example.com" aria-describedby="inputSuccess2Status">
+                      <span id="inputSuccess2Status" class="sr-only">(success)</span>
+                    </div>
+                  </div>
+
+                  <div class="form-row">
+                    <label for=""><span>*</span>PASSWORD</label><br />
+                  </div>
+                  <div class="form-row">
+                    <div class="form-group">
+                      <input type="password" class="modal-form field-control" id="" placeholder="Password" name="password" aria-describedby="inputSuccess2Status">
+                      <span id="inputSuccess2Status" class="sr-only">(success)</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="form-row text-center">
+                  <p class="message">By signing up, i agree to Sidejob's <a href="#">Terms and Conditions</a> and <a href="#">Privancy Policy</a></p>
+                </div>
+              </div>
+              <div style="padding-left: 35%; padding-right: 35%;">
+                <div class="form-group">
+                  <input type="submit" class="btn btn-social btn-default" value="CREATE ACCCOUNT">
+                </div>
+                {{!-- <button class="btn btn-sigin disable">CREATE ACCCOUNT</button> --}}
+
+                <div class="form-row text-center">
+                  <p>Please fill out all required(<a class="link" href="#">*</a>) fields.</p>
+                </div>
+              </form>   
+            </div>
+          </section>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal" id="signin">
+    <div class="modal-dialog">
+      <div class="modal-content" style="width: 20%">
+        <div class="modal-body">
+        <header><a href="#" data-dismiss="modal" style="float: right; padding: 10px;"><i class="fa fa-times fa-2x"></i></a></header>
+          <section>
+            <div class="form-wrapper">
+              <div class="part-title text-center">
+                <span>SIGN IN</span>
+              </div>
+              <form action="/signin" method="POST" role="form">
+                <div class="form-row">
+                  <label for="">EMAIL</label><br />
+                </div>
+                <div class="form-row">
+                  <input type="email" class="modal-form field-control" id="" placeholder="Email Address" name="email" aria-describedby="inputSuccess2Status">
+              <span id="inputSuccess2Status" class="sr-only">(success)</span>
+                </div>
+
+                <div class="form-row">
+                  <label for="">PASSWORD</label><br />
+                </div>
+                <div class="form-row">
+                  <input type="password" name="password" class="modal-form field-control" id="" placeholder="Password" aria-describedby="inputSuccess2Status">
+            <span id="inputSuccess2Status" class="sr-only">(success)</span>
+                </div>
+
+                <div class="form-row">
+                  <input type="checkbox"/><label for="">Remember me</label>
+                </div>
+
+                <input type="submit" name="submit" class="btn btn-social btn-default btn-sigin" value="Sign In">
+
+                <div class="form-row text-center">
+                  <a class="forgot-link link" href="#">Forgot Password</a>
+                </div>
+                <hr class="seperator">
+
+                <div class="form-row text-center">
+                  <p>Don't have an account? <a href="#" data-toggle="modal" data-target="#emailsignup" data-dismiss="modal">Signup</a></p>
+                  </div>
+                </form>   
+              </div>
+            </section>
+         {{!-- 
+        <div class="col-md-12">
+          <div class="form-group"><div class="pull-left">
+            <label class="text-small"><input type="checkbox"> Remember Me</label></div>
+            <div class="pull-right"><a href="#" data-target="#fpassword" data-toggle="modal"  class="color-link-red">
+              Forgot Password?</a></div>
+            </div>
+          </div> --}}
+        {{!-- <div class="col-md-12">
+          <hr/>
+          <p class="color-link-red">do not have an account?<a href="#" data-toggle="modal" data-target="#emailsignup" data-dismiss="modal">Signup</a></p>
+        </div> --}}
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+<!-- Signup/Signin Modal -->
+<div class="main-wrap">
+{{{body}}}
+
+
+<footer class="footer-main-outer">
+ <div class="footer-container">
+   <div class="container">
+     <div class="row footer-linkrow">
+
+      <a class="link-contrast" href="#">About</a>
+      <a class="link-contrast" href="#">Blog</a>
+      <a class="link-contrast" href="#">Jobs</a>
+      <a class="link-contrast" href="#">Terms</a>
+      <a class="link-contrast" href="#">Privacy</a>
+      <a class="link-contrast" href="#">Help &amp; Support</a>
+
+
+      <div class="clearfix"></div>
+    </div>
+
+    <section class="foot-social-icon">
+      <div class="social-icons">
+        <ul>
+          <li><a href="#" class="non-margin"><i class="fa fa-md fa-facebook"></i></a></li>
+          <li><a href="#" class="non-margin"><i class="fa fa-md fa-twitter"></i></a></li>
+          <li><a href="#" class="non-margin"><i class="fa fa-md fa-instagram"></i></a></li> 
+        </ul>
+      </div>
+      <p class="copyright-txt">&copy; 2016 SideJob</p>      
+    </section>
+
+
+  </div>
+</div>
+</footer>
+<script  src="/js/jquery.min.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/custom.js"></script>
+<script type="text/javascript" src="css/js/navbar.js"></script>
+
+</body>
+</html>
