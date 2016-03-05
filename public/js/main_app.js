@@ -213,9 +213,8 @@ angular.module("mainApp",['ngRoute','ngFileUpload','ui.bootstrap'])
 			'job': data.job
 		};
 		if ($scope.userData.avatar == undefined) {
-			$scope.userData['avatar'] = "http://localhost:8001/profileimages/user.jpg";
+			$scope.userData['avatar'] = "../profileimages/user.jpg";
 		}
-		console.log(".......................", $scope.userData.avatar);
 	};
 
 	function setUserImage (data) {
@@ -314,6 +313,27 @@ angular.module("mainApp",['ngRoute','ngFileUpload','ui.bootstrap'])
 	$scope.messageError = "";
 	$scope.showMenu = function() {
 		$scope.showSecondMenu = !$scope.showSecondMenu;
+		$scope.showOptions = true;
+		$scope.editOptions = {
+		'name': false,
+		'bio': false,
+		'photo': false,
+		'location': false,
+		'services': false,
+		'skills': false,
+		'email': false,
+		'password': false,
+		'hire': false
+		};
+		GetUserData.all()
+		.success(function(data){
+			$scope.setUserData(data);
+			$scope.userName = data.firstname;
+			$scope.userLogo = data.avatar;
+		});
+	};
+	$scope.hideMenu = function() {
+		$scope.showSecondMenu = false;
 	};
 
 	$scope.setUserData = function (data) {
@@ -332,7 +352,6 @@ angular.module("mainApp",['ngRoute','ngFileUpload','ui.bootstrap'])
 			'phone': data.phone,
 			'job': data.job
 		};
-		console.log("........................", $scope.userData);
 
 		$scope.specificCategory = $scope.categories[$scope.userData.generalJob];
 
@@ -397,7 +416,6 @@ angular.module("mainApp",['ngRoute','ngFileUpload','ui.bootstrap'])
 				$rootScope.$broadcast('update-profile');
 				GetUserData.all()
 				.success(function(data){
-					console.log("........................", $scope.userData);
 					$scope.setUserData(data);
 					$scope.userName = data.firstname;
 					$scope.userLogo = data.avatar;

@@ -34,7 +34,7 @@
 <body ng-app="mainApp" ng-controller="mainController as main" style="overflow: auto;">
 	<div ng-if="!signup"><!--wrapper-->
 	<header class="hub-header">      
-      <a class="hub-overlay-nav-left-trigger" href="" onclick="toggleFirstMenu()">
+      <a class="hub-overlay-nav-left-trigger" href="" onclick="toggleFirstMenu(); toggleSecondMenu" ng-click="hideMenu()">
          <span class="hub-menu-icon"></span>
       </a>
       <div class="hub-logo">
@@ -90,7 +90,7 @@
      	 </ul>
     	</div>
 
-    	 <div ng-show="showSecondMenu" class="sidebar-content" id="second-menu-content" style="position: relative;float: right;top: -10px;background-color: whitesmoke; min-height: 200; overflow: auto; width: 25%;">
+    	 <div ng-show="showSecondMenu" class="sidebar-content" style="position: relative;float: right;top: -10px;background-color: whitesmoke; min-height: 200; overflow: auto; width: 25%;">
     	 	<ul ng-show="showOptions" class="sidebar-links">
         <li style="border: 1px solid #e6e6e6; background-color: #e6e6e6;"> <a style="color: black; text-decoration: none;" href="/logout"><i class="fa fa-sign-out fa-lg" style="padding: 5px; padding-right: 10px;"></i>Logout</a> </li>
         <li style="border: 1px solid #e6e6e6; background-color: #e6e6e6;"> <a style="color: black; text-decoration: none;" href="" ng-click="menuClicked('email')"><i class="fa fa-envelope fa-lg" style="padding: 5px; padding-right: 10px;"></i>Account</a> </li>
