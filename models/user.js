@@ -46,7 +46,7 @@ var UserSchema = mongoose.Schema({
 UserSchema.methods = {
 
     authenticate: function(plainText) {
-        return util.encrypt(plainText) == this.password;
+        return plainText == this.password;
     }
 
 };
