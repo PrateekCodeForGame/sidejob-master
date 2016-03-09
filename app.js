@@ -192,6 +192,17 @@ message.save(function(err, thor) {
   console.dir(message);
 });*/
 
+
+app.get('/listUsers',function (req, res) {
+    User.find(function(err, users) {
+        if (err) {
+            return res.send(err);
+        }
+        res.json(users);
+        console.log(res.json(users));
+    });
+});
+
 app.get('/test_messages', require('connect-ensure-login').ensureLoggedIn(),
     function(req,res) { 
         Message.find(function(err, movies) {

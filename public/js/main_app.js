@@ -267,14 +267,36 @@ angular.module("mainApp",['ngRoute','ngFileUpload','ui.bootstrap'])
 	}
 })
 
-.controller("mainController", function(GetUserName, SaveUserData, $window, $uibModal, GetUserData, GetJobs, $scope,$anchorScroll,Upload,$timeout, $scope, $location,$rootScope) {
+.controller("mainController", function(GetUserName, SaveUserData, $window, $uibModal, GetUserData, GetJobs, $http, $scope,$anchorScroll,Upload,$timeout, $scope, $location,$rootScope) {
 
 	$rootScope.$on('signup-complete', function(event){
 		$scope.signup = false;
 	});
 	$scope.signup = false;
 	var vm = this;
-	
+
+    //start filtering search
+    $scope.searchby = ["Name","Skills","General Job"];
+    $scope.selected_dropdown = null;
+    $scope.search_element = null;
+    $scope.typed_search_element = function typed_search_element(data) {
+        $scope.search_element = data;
+        //console.log($scope.search_element);
+    };
+
+    $scope.search_bar = function search_bar(){
+        //send this data to other controller like dashboard
+        $rootScope.$broadcast('Searched Data', $scope.selected_dropdown,$scope.search_element);
+        console.log($scope.selected_dropdown,$scope.search_element);
+        //end sending
+    };
+
+    $scope.test = function test(data){
+        $scope.selected_dropdown = data;
+        //console.log("**********",$scope.selected_dropdown);
+    };
+
+    //end filtering search
 	$scope.categories = {
 		'Legal':  ["Contract Law","Corporate Law","Criminal Law","Family Law","Intellectual Property Law","Paralegal Services","Other - Legal"],
 		'Pets': ["Dog Training","Dog Walking","Pet Care","Pet Sitting"],
@@ -862,9 +884,50 @@ angular.module("mainApp",['ngRoute','ngFileUpload','ui.bootstrap'])
 
 })
 
-.controller("dashboardController",function(GetZIPs,GetUserData,GetJobs,$scope,$rootScope) {
+.controller("dashboardController",function(GetZIPs,GetUserData,$http,GetJobs,$scope,$rootScope) {
 
-	var vm = this;
+    $http.get('/listusers').success(
+        function(data){
+            $scope.usersAll_filter = data;
+            $scope.usersAll = data;
+        }
+    );
+    // Listen the broadcast
+    $scope.$on('Searched Data', function(response, selected_dropdown, searched_value) {
+        $scope.filtered_data = [];
+        //create an array of the User data filtered by searched items
+        for(var i=0;i<$scope.usersAll.length;i++){
+            if(selected_dropdown == 'Name') {
+                if ($scope.usersAll[i].firstName.toLowerCase() == searched_value.toLowerCase() ||
+                    $scope.usersAll[i].lastName.toLowerCase() == searched_value.toLowerCase()){
+
+                    $scope.filtered_data.push($scope.usersAll[i]);
+                }
+            } else if(selected_dropdown == 'Skills'){
+                if($scope.usersAll[i].skills){
+                    var skills = $scope.usersAll[i].skills.split(",");
+                    for(var j=0;j<skills.length;j++){
+                        if(skills[j].toLowerCase() == searched_value.toLowerCase()){
+                            $scope.filtered_data.push($scope.usersAll[i]);
+                        }
+                    }
+                }
+            }
+            else  if(selected_dropdown == 'General Job'){
+                if($scope.usersAll[i].general_job){
+                    if ( $scope.usersAll[i].general_job.toLowerCase() == searched_value.toLowerCase()){
+                        $scope.filtered_data.push($scope.usersAll[i]);
+                    }
+                }
+            }
+        }
+        $scope.usersAll_filter = null;
+        $scope.usersAll_filter = $scope.filtered_data;
+    });
+    // end listening
+
+
+    var vm = this;
 	$rootScope.$broadcast('signup-complete');
 	//dashboard tabs - urgent and sidejob
 	vm.tab = "urgent"
@@ -1053,7 +1116,7 @@ angular.module("mainApp",['ngRoute','ngFileUpload','ui.bootstrap'])
 		})
 		vm.filter_applied_jobs();
 
-		
+
 	}
 
 	vm.isAppliedOrRejected = function(id) {
@@ -1070,6 +1133,7 @@ angular.module("mainApp",['ngRoute','ngFileUpload','ui.bootstrap'])
 		})
 		return found;
 	}
+
 
 	$scope.userLogo = '';
 	GetUserData.all()

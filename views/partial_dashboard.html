@@ -11,7 +11,7 @@
 				<div class="filter-content">
 						<div class="filter-content-section">
 							<h4 class="title">Need Help?</h4>
-							<p class="text-center"><a class="post-job-btn" ng-click="dashboard.postJobModal()" href="#">Post a Job</a></p>
+							<p class="text-center"><a class="post-job-btn" ng-click="dashboard.postJobModal()" href="#">Post a job</a></p>
 						</div>
 					</div>
 					<div class="clearfix"></div>
@@ -66,72 +66,17 @@
 
 					<div class="content">
 						<div class="row">
-						<div class="col-md-4 col-sm-6">
-								<div class="dashboard-info-box grow">
-									<div class="featured-img">
-										<img class="img img-responsive" src="images/b3.jpg" height="100" alt="">
-										<img class="media-avatar" src="images/avatar_01_tn.png" width="34" height="34" alt="">
-										<span style="z-index: 100; position: absolute; top:5px; right: 5px"><i class="fa fa-heart" style="color: lightgray"></i></span>
-										<label style="z-index: 100; width: 20%; position: absolute; top: 130px; background-color: lightgray;">$320</label>
-									</div>
-									<div class="meta-info">
-											<p class="description-new ng-binding">
-												fsd
-											</p>
-										<div class="row list-inline" style="border-top: 1px solid #E8E8E8 ;margin-right: 0px;margin-left: 0px;">
-											<!---<div><a href=""><i class="fa fa-heart-o"></i></a></li>-->
-											<div class="col-xs-3"><a href="" class="eg-time">54 m</a></div>
-											<div class="col-xs-4 text-center" style="width: inherit;border-right: 1px solid #E8E8E8 ;border-left: 1px solid #E8E8E8 ;"><a href=""><i class="fa fa-close" style="color: red" ng-click="dashboard.reject(job._id)"></i>Not Interested</a></div>
-											<div class="col-xs-4 text-center"><a href=""><i class="fa fa-check" style="color: green" ng-click="dashboard.apply(job._id)"></i>Approve</a></div>
-											<div class="col-xs-1"></div>
-										</div>
-									</div>
-								</div><!-- end .dashboard-info-box -->
+						<div class="col-md-4 col-sm-6" ng-repeat="user in usersAll_filter" style="border: 1px solid black; padding: 10px;">
+<span class="avatar-profile">
+            			<img alt="" ng-src="{{user.avatar}}" title="Edit profile image" id="profile_img" ng-model="file" class="avatar avatar-70 photo avatar-default pic" height="200" width="200" type="file">
+            			</span>
+							<div>name -- {{user.firstName}} {{lastName}}</div>
+							<div>address -- {{user.address}}</div>
+							<div>job -- {{user.general_job}}</div>
+							<div>{{user.bio}}</div>
+							<div>{{user.skills}}</div>
+							<div></div>
 							</div>
-							<div class="col-md-4 col-sm-6">
-								<div class="dashboard-info-box grow">
-									<div class="featured-img">
-										<img class="img img-responsive" src="images/b3.jpg" height="100" alt="">
-										<img class="media-avatar" src="images/avatar_01_tn.png" width="34" height="34" alt="">
-										<span style="z-index: 100; position: absolute; top:5px; right: 5px"><i class="fa fa-heart" style="color: lightgray"></i></span>
-										<label style="z-index: 100; width: 20%; position: absolute; top: 130px; background-color: lightgray;">$320</label>
-									</div>
-									<div class="meta-info">
-											<p class="description-new ng-binding">
-												fsd
-											</p>
-										<div class="row list-inline" style="border-top: 1px solid #E8E8E8 ;margin-right: 0px;margin-left: 0px;">
-											<!---<div><a href=""><i class="fa fa-heart-o"></i></a></li>-->
-											<div class="col-xs-3"><a href="" class="eg-time">54 m</a></div>
-											<div class="col-xs-4 text-center" style="width: inherit;border-right: 1px solid #E8E8E8 ;border-left: 1px solid #E8E8E8 ;"><a href=""><i class="fa fa-close" style="color: red" ng-click="dashboard.reject(job._id)"></i>Not Interested</a></div>
-											<div class="col-xs-4 text-center"><a href=""><i class="fa fa-check" style="color: green" ng-click="dashboard.apply(job._id)"></i>Approve</a></div>
-										</div>
-									</div>
-								</div><!-- end .dashboard-info-box -->
-							</div>
-							<div class="col-md-4 col-sm-6">
-								<div class="dashboard-info-box grow">
-									<div class="featured-img">
-										<img class="img img-responsive" src="images/b3.jpg" height="100" alt="">
-										<img class="media-avatar" src="images/avatar_01_tn.png" width="34" height="34" alt="">
-										<span style="z-index: 100; position: absolute; top:5px; right: 5px"><i class="fa fa-heart" style="color: lightgray"></i></span>
-										<label style="z-index: 100; width: 20%; position: absolute; top: 130px; background-color: lightgray;">$320</label>
-									</div>
-									<div class="meta-info">
-											<p class="description-new ng-binding">
-												fsd
-											</p>
-										<div class="row list-inline" style="border-top: 1px solid #E8E8E8 ;margin-right: 0px;margin-left: 0px;">
-											<!---<div><a href=""><i class="fa fa-heart-o"></i></a></li>-->
-											<div class="col-xs-3"><a href="" class="eg-time">54 m</a></div>
-											<div class="col-xs-4 text-center" style="width: inherit;border-right: 1px solid #E8E8E8 ;border-left: 1px solid #E8E8E8 ;"><a href=""><i class="fa fa-close" style="color: red" ng-click="dashboard.reject(job._id)"></i>Not Interested</a></div>
-											<div class="col-xs-4 text-center"><a href=""><i class="fa fa-check" style="color: green" ng-click="dashboard.apply(job._id)"></i>Approve</a></div>
-										</div>
-									</div>
-								</div><!-- end .dashboard-info-box -->
-							</div>
-							
-							
 						</div>
 					</div>
 					</div>
