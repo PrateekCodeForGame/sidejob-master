@@ -922,66 +922,63 @@ angular.module("mainApp",['ngRoute','ngFileUpload','ui.bootstrap'])
     //$scope.categories_now = null;
     $scope.filtered_categories = [];
 	$scope.selected_categories = function selected_categories(categories_now){
-        console.log(categories_now);
         if(categories_now.selected){
             $scope.filtered_categories.push(categories_now.Name);
         }
         else {
-            console.log("-------------------",categories_now.Name,$scope.filtered_categories, $scope.filtered_categories.indexOf(categories_now.Name));
             var ii = $scope.filtered_categories.indexOf(categories_now.Name);
             if(ii != -1) {
                 $scope.filtered_categories.splice(ii, 1);
             }
         }
-        //-------------------
         $scope.filtered_data_left = [];
-        if($scope.filtered_data_left.length<1 && $scope.search_from_bar==false){
-            $scope.filtered_data_left = $scope.usersAll;
-            console.log($scope.filtered_data_left,$scope.usersAll);
+        if($scope.search == true){
+            $scope.filtered_data_left.push($scope.usersAll_filter);
         }else{
+            $scope.filtered_data_left = [];
+        }
+        if($scope.filtered_data_left.length<1){
+            $scope.showProfile = false;
+            $scope.filtered_data_left = $scope.usersAll;
+            }
+        else{
+            $scope.showProfile = true;
             $scope.filtered_data_left = $scope.filtered_data;
         }
-        //if($scope.filtered_data_left.length < 1){
-        //    $scope.filtered_data_left = $scope.usersAll;
-        //    console.log("saving user all in filtered data");
-        //}else {
-        //    console.log("It should auto filter");
-        //}
-        var fd = [];
+        $scope.fd = [];
         for(var m=0;m<$scope.filtered_data_left.length;m++){
-            console.log("you there",$scope.filtered_data_left.length);
-            if($scope.filtered_categories.length < 1){
-                break;
+            if($scope.filtered_categories.length < 1 && $scope.search==true){
+                $scope.fd = $scope.filtered_data_left;
             }
             else {
                 for(var n=0; n<$scope.filtered_categories.length;n++){
                     if($scope.filtered_data_left[m].general_job == $scope.filtered_categories[n]){
-                        fd.push($scope.filtered_data_left[m]);
+                        $scope.fd.push($scope.filtered_data_left[m]);
                     }
                 }
             }
         }
-        $scope.usersAll_filter = null;
-        if(fd.length>0) {
-            $scope.usersAll_filter = fd;
-        }else{
-            if($scope.search_from_bar==false)
+        if($scope.fd.length>0) {
+            $scope.showProfile = true;
+            $scope.usersAll_filter = $scope.fd;
+        }else {
+            if ($scope.search_from_bar == false)
                 $scope.usersAll_filter = $scope.usersAll;
-            else
-                $scope.usersAll_filter = $scope.filtered_data;
+            else {
+                $scope.usersAll_filter = $scope.fd;
+            }
         }
-            //----------------------
-        console.log($scope.filtered_categories);
     };
     $scope.showProfile = false;
     // Listen the broadcast
     $scope.search_from_bar = false;
     $scope.$on('Searched Data', function(response, selected_dropdown, searched_value,search) {
+        $scope.selected_dropdown = selected_dropdown;
+        $scope.searched_value = searched_value;
+        $scope.search = search;
         $scope.filtered_data = [];
-        console.log(".................");
         $scope.showProfile = true;
         $scope.search_from_bar = search;
-        console.log("hi");
         //create an array of the User data filtered by searched items
         for(var i=0;i<$scope.usersAll.length;i++){
             if(selected_dropdown == 'Name') {
@@ -1011,7 +1008,6 @@ angular.module("mainApp",['ngRoute','ngFileUpload','ui.bootstrap'])
         $scope.usersAll_filter = null;
         $scope.usersAll_filter = $scope.filtered_data;
     });
-
     // end listening
 
 /*	vm.jobs = [
