@@ -286,7 +286,7 @@ angular.module("mainApp",['ngRoute','ngFileUpload','ui.bootstrap'])
 
     $scope.search_bar = function search_bar(){
         //send this data to other controller like dashboard
-        $rootScope.$broadcast('Searched Data', $scope.selected_dropdown,$scope.search_element);
+        $rootScope.$broadcast('Searched Data', $scope.selected_dropdown,$scope.search_element,true);
         console.log($scope.selected_dropdown,$scope.search_element);
         //end sending
     };
@@ -886,15 +886,90 @@ angular.module("mainApp",['ngRoute','ngFileUpload','ui.bootstrap'])
 
 .controller("dashboardController",function(GetZIPs,GetUserData,$http,GetJobs,$scope,$rootScope) {
 
-    $http.get('/listusers').success(
+    $http.get('/test_users').success(
         function(data){
             $scope.usersAll_filter = data;
             $scope.usersAll = data;
         }
     );
+
+    var vm = this;
+	$rootScope.$broadcast('signup-complete');
+	//dashboard tabs - urgent and sidejob
+	vm.tab = "urgent"
+	//categories
+	//$scope.categories = ["Personal","Automotive","Beauty","Repair","Household","Legal","Pets","Web"];
+    $scope.categories = [
+        {Name: "Personal"},
+        {Name: "Automotive"},
+        {Name: "Beauty"},
+        {Name: "Repair"},
+        {Name: "Household"},
+        {Name: "Legal"},
+        {Name: "Pets"},
+        {Name: "Web"}
+    ];
+    //$scope.categories_now = null;
+    $scope.filtered_categories = [];
+	$scope.selected_categories = function selected_categories(categories_now){
+        console.log(categories_now);
+        if(categories_now.selected){
+            $scope.filtered_categories.push(categories_now.Name);
+        }
+        else {
+            console.log("-------------------",categories_now.Name,$scope.filtered_categories, $scope.filtered_categories.indexOf(categories_now.Name));
+            var ii = $scope.filtered_categories.indexOf(categories_now.Name);
+            if(ii != -1) {
+                $scope.filtered_categories.splice(ii, 1);
+            }
+        }
+        //-------------------
+        $scope.filtered_data_left = [];
+        if($scope.filtered_data_left.length<1 && $scope.search_from_bar==false){
+            $scope.filtered_data_left = $scope.usersAll;
+            console.log($scope.filtered_data_left,$scope.usersAll);
+        }else{
+            $scope.filtered_data_left = $scope.filtered_data;
+        }
+        //if($scope.filtered_data_left.length < 1){
+        //    $scope.filtered_data_left = $scope.usersAll;
+        //    console.log("saving user all in filtered data");
+        //}else {
+        //    console.log("It should auto filter");
+        //}
+        var fd = [];
+        for(var m=0;m<$scope.filtered_data_left.length;m++){
+            console.log("you there",$scope.filtered_data_left.length);
+            if($scope.filtered_categories.length < 1){
+                break;
+            }
+            else {
+                for(var n=0; n<$scope.filtered_categories.length;n++){
+                    if($scope.filtered_data_left[m].general_job == $scope.filtered_categories[n]){
+                        fd.push($scope.filtered_data_left[m]);
+                    }
+                }
+            }
+        }
+        $scope.usersAll_filter = null;
+        if(fd.length>0) {
+            $scope.usersAll_filter = fd;
+        }else{
+            if($scope.search_from_bar==false)
+                $scope.usersAll_filter = $scope.usersAll;
+            else
+                $scope.usersAll_filter = $scope.filtered_data;
+        }
+            //----------------------
+        console.log($scope.filtered_categories);
+    };
+
     // Listen the broadcast
-    $scope.$on('Searched Data', function(response, selected_dropdown, searched_value) {
+    $scope.search_from_bar = false;
+    $scope.$on('Searched Data', function(response, selected_dropdown, searched_value,search) {
         $scope.filtered_data = [];
+        $scope.search_from_bar = search;
+        console.log("hi");
         //create an array of the User data filtered by searched items
         for(var i=0;i<$scope.usersAll.length;i++){
             if(selected_dropdown == 'Name') {
@@ -924,15 +999,8 @@ angular.module("mainApp",['ngRoute','ngFileUpload','ui.bootstrap'])
         $scope.usersAll_filter = null;
         $scope.usersAll_filter = $scope.filtered_data;
     });
+
     // end listening
-
-
-    var vm = this;
-	$rootScope.$broadcast('signup-complete');
-	//dashboard tabs - urgent and sidejob
-	vm.tab = "urgent"
-	//categories
-	$scope.categories = ["Personal","Automotive","Beauty","Repair","Technical","Creative","Event","Financial","Household","Legal","Lessons","Pets","Web"];
 
 /*	vm.jobs = [
 		{

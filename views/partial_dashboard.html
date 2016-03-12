@@ -20,7 +20,7 @@
 						<div class="row filter-content-section">
 							<h5 class="title">Category</h5>
 							<ul class="categories">
-								<li class="cursor show" ng-repeat="category in categories"><input class="cursor" type="checkbox"/><p class="cursor">{{category}}</p></li>
+								<li class="cursor show"  ng-repeat="category in categories"><input  ng-click="selected_categories(category)" ng-model="category.selected"  class="cursor" type="checkbox"/><p class="cursor">{{category.Name}}</p></li>
 							</ul>
 						</div>
 						<div class="row filter-content-section">
