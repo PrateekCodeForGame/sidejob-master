@@ -973,11 +973,13 @@ angular.module("mainApp",['ngRoute','ngFileUpload','ui.bootstrap'])
             //----------------------
         console.log($scope.filtered_categories);
     };
-
+    $scope.showProfile = false;
     // Listen the broadcast
     $scope.search_from_bar = false;
     $scope.$on('Searched Data', function(response, selected_dropdown, searched_value,search) {
         $scope.filtered_data = [];
+        console.log(".................");
+        $scope.showProfile = true;
         $scope.search_from_bar = search;
         console.log("hi");
         //create an array of the User data filtered by searched items
