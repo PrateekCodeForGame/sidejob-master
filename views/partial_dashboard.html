@@ -66,16 +66,15 @@
 
 					<div class="content">
 						<div class="row">
-						<div class="col-md-4 col-sm-6" ng-repeat="user in usersAll_filter" style="border: 1px solid black; padding: 10px;">
-<span class="avatar-profile">
-            			<img alt="" ng-src="{{user.avatar}}" title="Edit profile image" id="profile_img" ng-model="file" class="avatar avatar-70 photo avatar-default pic" height="200" width="200" type="file">
+						<div class="col-md-4 col-sm-6" ng-repeat="user in usersAll_filter" style="padding: 10px; margin: 10px; text-align: center; height: 500px; width: 30%;">
+						<span class="avatar-profile">
+            			<img alt="" style="border-radius: 500px;" ng-src="{{user.avatar}}" title="Edit profile image" id="profile_img" ng-model="file" class="avatar avatar-70 photo avatar-default pic" height="200" width="200" type="file">
             			</span>
-							<div>name -- {{user.firstName}} {{lastName}}</div>
-							<div>address -- {{user.address}}</div>
-							<div>job -- {{user.general_job}}</div>
-							<div>{{user.bio}}</div>
-							<div>{{user.skills}}</div>
-							<div></div>
+							<div style="padding: 10px;"><strong>{{user.firstName}} {{lastName}}</strong></div>
+							<div style="padding: 10px;"><b>{{user.address}}</b></div>
+							<div style="padding: 10px;">{{user.general_job}}</div>
+							<div style="padding: 10px;"><button style="background-color: #008DC8">Request Services</button></div>
+							<div style="padding: 10px;">{{user.summary}}</div>
 							</div>
 						</div>
 					</div>

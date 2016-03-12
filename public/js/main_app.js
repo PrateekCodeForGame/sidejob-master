@@ -268,6 +268,12 @@ angular.module("mainApp",['ngRoute','ngFileUpload','ui.bootstrap'])
 })
 
 .controller("mainController", function(GetUserName, SaveUserData, $window, $uibModal, GetUserData, GetJobs, $http, $scope,$anchorScroll,Upload,$timeout, $scope, $location,$rootScope) {
+	$scope.showSearch = true;
+
+	$rootScope.$on('showSeacrchBar', function(event, value){
+		console.log("...................", value);
+		$scope.showSearch = value;
+	});
 
 	$rootScope.$on('signup-complete', function(event){
 		$scope.signup = false;
@@ -276,7 +282,7 @@ angular.module("mainApp",['ngRoute','ngFileUpload','ui.bootstrap'])
 	var vm = this;
 
     //start filtering search
-    $scope.searchby = ["Name","Skills","General Job"];
+    $scope.searchby = ["Name","General Job"];
     $scope.selected_dropdown = null;
     $scope.search_element = null;
     $scope.typed_search_element = function typed_search_element(data) {
@@ -631,12 +637,14 @@ angular.module("mainApp",['ngRoute','ngFileUpload','ui.bootstrap'])
 
 	})
 
-.controller("exploreController",function() {
+.controller("exploreController",function($rootScope) {
+	$rootScope.$broadcast('showSeacrchBar', false);
 	var vm = this;
 })
 
 .controller("profileController",function(GetUserData, $rootScope, GetWorkImages, SaveUserData, $timeout,$window,$scope,Upload) {
 
+	$rootScope.$broadcast('showSeacrchBar', false);
 	var vm = this;
 	/**
 	 * User data initialization
@@ -872,8 +880,8 @@ angular.module("mainApp",['ngRoute','ngFileUpload','ui.bootstrap'])
 
 })
 
-.controller("messageController",function() {
-
+.controller("messageController",function($rootScope) {
+	$rootScope.$broadcast('showSeacrchBar', false);
 	var vm = this;
 
 	//messages tab
@@ -885,6 +893,8 @@ angular.module("mainApp",['ngRoute','ngFileUpload','ui.bootstrap'])
 })
 
 .controller("dashboardController",function(GetZIPs,GetUserData,$http,GetJobs,$scope,$rootScope) {
+
+	$rootScope.$broadcast('showSeacrchBar', true);
 
     $http.get('/test_users').success(
         function(data){

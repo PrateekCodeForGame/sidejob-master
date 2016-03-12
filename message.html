@@ -45,12 +45,19 @@
       </div>			
       
       <!-- SEARCH BOX -->
-      <div id="morphsearch" class="morphsearch">
-         <form class="morphsearch-form">            
-            <input class="morphsearch-input" type="search" placeholder="Search..." ng-model="search_element"  ng-change="typed_search_element(search_element)" />
-             <div class="input-group-btn">
+      <div ng-show="showSearch" id="morphsearch" class="morphsearch">
+         <form class="morphsearch-form"> 
+         <!-- Start of drop down for search -->
+
+            
+        <!-- End of drop down for search -->           
+            <input style="width: 70%" class="morphsearch-input" type="search" placeholder="Search..." ng-model="search_element"  ng-change="typed_search_element(search_element)" />
+            <!-- <select id="searchby" ng-model="selected_dropdown"  ng-options="search as search for search in searchby" ng-change="test(selected_dropdown)"> -->
+                <!--<option class="scrollable-menu"></option>-->
+            </select>
+            <!--  <div class="input-group-btn"> -->
                  <button class="btn btn-default" ng-click="search_bar()" type="submit" style="height: 34px;"><i class="fa fa-search"></i></button>
-             </div>
+          <!--    </div> -->
             <!--button class="morphsearch-submit" type="submit">Search</button-->
          </form>
          <!-- Auto complete search results -->
@@ -68,12 +75,7 @@
       <!-- End of SEARCH BOX -->
 
 
-        <!-- Start of drop down for search -->
-
-            <select class="form-control" id="searchby" ng-model="selected_dropdown"  ng-options="search as search for search in searchby" ng-change="test(selected_dropdown)">
-                <!--<option class="scrollable-menu"></option>-->
-            </select>
-        <!-- End of drop down for search -->
+        
 
       <ul class="top-head-list fonting">
       	<li><a href="">Hello {{userName}}</a></li>
